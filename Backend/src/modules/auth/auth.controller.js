@@ -24,6 +24,7 @@ const userLogin = asyncHandler(async (req, res, next) => {
 
   // exclude password
   const { password: pwd, ...userData } = user.toObject();
+  user.password = undefined;
 
   res.status(200).json({
     success: true,

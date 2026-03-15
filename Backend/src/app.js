@@ -5,6 +5,8 @@ import morgan from "morgan";
 import { errorHandling } from "./middlewares/error.middleware.js";
 import authRouter from "./modules/auth/auth.router.js";
 import categoryRouter from "./modules/categories/category.router.js";
+import productRouter from "./modules/products/product.routes.js";
+import logger from "./middlewares/logger.middleware.js";
 
 //user router
 // category router
@@ -16,6 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+app.use(logger);
 
 app.use(
   session({
@@ -28,6 +31,8 @@ app.use(
 
 app.use("/api/auth", authRouter);
 app.use("/api/category", categoryRouter);
+app.use("/api/products", productRouter);
+app.use("/uploads", express.static("uploads"));
 
 //Error handling middleware
 app.use(errorHandling);
