@@ -1,15 +1,36 @@
 {
   "info": {
-    "_postman_id": "fullstack-store-api-v2",
+    "_postman_id": "fullstack-store-api-v3",
     "name": "Fullstack Store API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "API documentation for Fullstack Store Backend"
   },
+
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "categoryId",
+      "value": ""
+    },
+    {
+      "key": "productId",
+      "value": ""
+    }
+  ],
+
   "item": [
     {
       "name": "Auth",
       "item": [
         {
-          "name": "Register User",
+          "name": "Register",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -18,16 +39,15 @@
               "raw": "{\n  \"name\": \"Mohamed Ali\",\n  \"email\": \"mohamed@example.com\",\n  \"password\": \"123456\",\n  \"confirmPassword\": \"123456\"\n}"
             },
             "url": {
-              "raw": "http://localhost:3000/api/auth/register",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "auth", "register"]
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
             }
           }
         },
+
         {
-          "name": "Login User",
+          "name": "Login",
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
@@ -36,16 +56,15 @@
               "raw": "{\n  \"email\": \"mohamed@example.com\",\n  \"password\": \"123456\"\n}"
             },
             "url": {
-              "raw": "http://localhost:3000/api/auth/login",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "auth", "login"]
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
             }
           }
         }
       ]
     },
+
     {
       "name": "Categories",
       "item": [
@@ -56,18 +75,35 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjZmZmM3NGExZGY2ZDljYWZmMmExYyIsImVtYWlsIjoibW9oYW1lZEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc3MzYwMTA4OSwiZXhwIjoxNzczNjg3NDg5fQ.6KfBMPBAg8aHR4aNsfuCfgU6b0F3DK9kACLCxtJRvrE"
+                "value": "Bearer {{token}}"
               }
             ],
             "url": {
-              "raw": "http://localhost:3000/api/category",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "category"]
+              "raw": "{{baseUrl}}/category",
+              "host": ["{{baseUrl}}"],
+              "path": ["category"]
             }
           }
         },
+
+        {
+          "name": "Get Category By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/category/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["category", "{{categoryId}}"]
+            }
+          }
+        },
+
         {
           "name": "Create Category",
           "request": {
@@ -76,7 +112,7 @@
               { "key": "Content-Type", "value": "application/json" },
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjZmZmM3NGExZGY2ZDljYWZmMmExYyIsImVtYWlsIjoibW9oYW1lZEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc3MzYwMTA4OSwiZXhwIjoxNzczNjg3NDg5fQ.6KfBMPBAg8aHR4aNsfuCfgU6b0F3DK9kACLCxtJRvrE"
+                "value": "Bearer {{token}}"
               }
             ],
             "body": {
@@ -84,16 +120,56 @@
               "raw": "{\n  \"name\": \"Phones\",\n  \"description\": \"Mobile phones category\"\n}"
             },
             "url": {
-              "raw": "http://localhost:3000/api/category",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "category"]
+              "raw": "{{baseUrl}}/category",
+              "host": ["{{baseUrl}}"],
+              "path": ["category"]
+            }
+          }
+        },
+
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Category\",\n  \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/category/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["category", "{{categoryId}}"]
+            }
+          }
+        },
+
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/category/{{categoryId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["category", "{{categoryId}}"]
             }
           }
         }
       ]
     },
+
     {
       "name": "Products",
       "item": [
@@ -104,18 +180,40 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjZmZmM3NGExZGY2ZDljYWZmMmExYyIsImVtYWlsIjoibW9oYW1lZEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc3MzYwMTA4OSwiZXhwIjoxNzczNjg3NDg5fQ.6KfBMPBAg8aHR4aNsfuCfgU6b0F3DK9kACLCxtJRvrE"
+                "value": "Bearer {{token}}"
               }
             ],
             "url": {
-              "raw": "http://localhost:3000/api/products",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "products"]
+              "raw": "{{baseUrl}}/products?page=1&limit=10&search=",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "10" },
+                { "key": "search", "value": "" }
+              ]
             }
           }
         },
+
+        {
+          "name": "Get Product By Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}"]
+            }
+          }
+        },
+
         {
           "name": "Create Product",
           "request": {
@@ -124,7 +222,7 @@
               { "key": "Content-Type", "value": "application/json" },
               {
                 "key": "Authorization",
-                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjZmZmM3NGExZGY2ZDljYWZmMmExYyIsImVtYWlsIjoibW9oYW1lZEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc3MzYwMTA4OSwiZXhwIjoxNzczNjg3NDg5fQ.6KfBMPBAg8aHR4aNsfuCfgU6b0F3DK9kACLCxtJRvrE"
+                "value": "Bearer {{token}}"
               }
             ],
             "body": {
@@ -132,43 +230,82 @@
               "raw": "{\n  \"name\": \"iPhone 14\",\n  \"description\": \"Apple iPhone 14\",\n  \"price\": 1200,\n  \"categoryId\": \"{{categoryId}}\"\n}"
             },
             "url": {
-              "raw": "http://localhost:3000/api/products",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "products"]
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
             }
           }
         },
+
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Product\",\n  \"price\": 1500\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}"]
+            }
+          }
+        },
+
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}"]
+            }
+          }
+        },
+
         {
           "name": "Upload Product Image",
           "request": {
             "method": "POST",
-            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
             "body": {
               "mode": "formdata",
               "formdata": [
-                { "key": "image", "type": "file", "src": "/path/to/image.png" }
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": ""
+                }
               ]
             },
             "url": {
-              "raw": "http://localhost:3000/api/products/{{productId}}/upload-image",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "3000",
-              "path": ["api", "products", "{{productId}}", "upload-image"]
+              "raw": "{{baseUrl}}/products/{{productId}}/upload-image",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", "{{productId}}", "upload-image"]
             }
           }
         }
       ]
     }
-  ],
-  "variable": [
-    {
-      "key": "token",
-      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YjZmZmM3NGExZGY2ZDljYWZmMmExYyIsImVtYWlsIjoibW9oYW1lZEBleGFtcGxlLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc3MzYwMTA4OSwiZXhwIjoxNzczNjg3NDg5fQ.6KfBMPBAg8aHR4aNsfuCfgU6b0F3DK9kACLCxtJRvrE"
-    },
-    { "key": "categoryId", "value": "" },
-    { "key": "productId", "value": "" }
   ]
 }
