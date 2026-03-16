@@ -242,15 +242,13 @@ Authorization: Bearer YOUR_TOKEN
 | DELETE | /cart/:productId | Remove a specific product from cart |
 | DELETE | /cart            | Clear all products from cart        |
 
----
-
 Notes:
 
 All cart routes are protected, require JWT.
 
 Total price is calculated automatically based on products and quantities.
 
-Supports adding multiple quantities of the same product.
+## Supports adding multiple quantities of the same product.
 
 # 📊 Query Parameters
 
