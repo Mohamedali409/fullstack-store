@@ -2,8 +2,8 @@ import Product from "./product.model.js";
 
 export const getAllProducts = (filter, skip, limit) => {
   return Product.find(filter)
-    .populate("categoryId")
-    .populate("categoryBy", "name email")
+    .populate("categoryId", "name")
+    .populate("createdBy", "name email")
     .skip(skip)
     .limit(limit);
 };
@@ -14,8 +14,8 @@ export const countProducts = (filter) => {
 
 export const getProductById = (productId) => {
   return Product.findById(productId)
-    .populate("categoryId")
-    .populate("categoryBy", "name email");
+    .populate("categoryId", "name")
+    .populate("createdBy", "name email");
 };
 
 export const createProduct = async (data) => {

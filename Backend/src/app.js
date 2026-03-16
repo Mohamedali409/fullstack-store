@@ -7,6 +7,7 @@ import authRouter from "./modules/auth/auth.router.js";
 import categoryRouter from "./modules/categories/category.router.js";
 import productRouter from "./modules/products/product.routes.js";
 import logger from "./middlewares/logger.middleware.js";
+import cartRouter from "./modules/card/cart.router.js";
 
 //user router
 // category router
@@ -33,6 +34,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/products", productRouter);
 app.use("/uploads", express.static("uploads"));
+app.use("/api/cart", cartRouter);
 
 //Error handling middleware
 app.use(errorHandling);
