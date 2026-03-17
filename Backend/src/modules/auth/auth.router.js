@@ -13,7 +13,7 @@ authRouter.get(
 );
 
 // Callback route
-router.get(
+authRouter.get(
   "/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {

@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    stoke: {
+    stock: {
       type: Number,
       default: 0,
     },

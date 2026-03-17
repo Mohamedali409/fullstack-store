@@ -42,7 +42,7 @@ const updateProduct = asyncHandler(async (req, res, next) => {
     req.body,
   );
 
-  req.status(200).json({
+  res.status(200).json({
     success: true,
     productData: product,
   });

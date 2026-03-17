@@ -21,9 +21,8 @@ categoryRouter.use(protect);
 categoryRouter.get("/", getAllCategories);
 categoryRouter.get("/:categoryId", getCategoryById);
 
-categoryRouter.use(restrictTo("Admin"));
-categoryRouter.post("/", createCategory);
-categoryRouter.put("/:categoryId", updateCategory);
-categoryRouter.delete("/:categoryId", deleteCategory);
+categoryRouter.post("/", restrictTo("Admin"), createCategory);
+categoryRouter.put("/:categoryId", restrictTo("Admin"), updateCategory);
+categoryRouter.delete("/:categoryId", restrictTo("Admin"), deleteCategory);
 
 export default categoryRouter;

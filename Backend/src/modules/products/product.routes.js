@@ -6,6 +6,7 @@ import {
   createProduct,
   deleteProduct,
   getAllProduct,
+  getProductById,
   updateProduct,
   uploadImage,
 } from "./product.controller.js";
@@ -14,7 +15,7 @@ import { uploadProductImage } from "../../middlewares/multer.js";
 const productRouter = express.Router();
 
 productRouter.get("/", getAllProduct);
-productRouter.get("/:productId", getAllProduct);
+productRouter.get("/:productId", getProductById);
 
 productRouter.use(protect);
 
@@ -23,14 +24,6 @@ productRouter.post("/", restrictTo("Admin"), uploadProductImage, createProduct);
 productRouter.put("/:productId", restrictTo("Admin"), updateProduct);
 
 productRouter.delete("/:productId", restrictTo("Admin"), deleteProduct);
-
-productRouter.post(
-  "/",
-  protect,
-  restrictTo("Admin"),
-  uploadProductImage,
-  createProduct,
-);
 
 productRouter.post(
   "/:id/upload-image",

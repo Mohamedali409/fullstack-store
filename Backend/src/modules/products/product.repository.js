@@ -1,11 +1,18 @@
 import Product from "./product.model.js";
 
-export const getAllProducts = (filter, skip, limit) => {
+export const getAllProducts = (filter = {}, skip = 0, limit = 10) => {
   return Product.find(filter)
-    .populate("categoryId", "name")
-    .populate("createdBy", "name email")
+    .populate({
+      path: "categoryId",
+      select: "name level parent",
+    })
+    .populate({
+      path: "createdBy",
+      select: "name email",
+    })
     .skip(skip)
-    .limit(limit);
+    .limit(limit)
+    .sort({ createdAt: -1 }); // 🔥 latest first
 };
 
 export const countProducts = (filter) => {
@@ -26,5 +33,5 @@ export const updateProduct = (productId, data) => {
 };
 
 export const deleteProduct = (productId) => {
-  return Product.findByIdAndUpdate(productId);
+  return Product.findByIdAndDelete(productId);
 };

@@ -22,15 +22,29 @@ const getCategoryById = asyncHandler(async (req, res, next) => {
   });
 });
 
-const createCategory = asyncHandler(async (req, res, next) => {
-  const { name, description } = req.body;
+// const createCategory = asyncHandler(async (req, res, next) => {
+//   const { name, description } = req.body;
 
-  const data = { name, description };
+//   const data = { name, description };
+//   const category = await categoryService.createCategory(data);
+
+//   res.status(201).json({
+//     success: true,
+//     message: "Category create successfully",
+//     categoryData: category,
+//   });
+// });
+
+const createCategory = asyncHandler(async (req, res, next) => {
+  const { name, description, level, parent } = req.body;
+
+  const data = { name, description, level, parent };
+
   const category = await categoryService.createCategory(data);
 
   res.status(201).json({
     success: true,
-    message: "Category create successfully",
+    message: "Category created successfully",
     categoryData: category,
   });
 });
