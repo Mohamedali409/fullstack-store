@@ -2,7 +2,6 @@ import asyncHandler from "../../utils/asyncHandler.js";
 import * as seederService from "./seed.server.js";
 
 const seedDatabase = asyncHandler(async (req, res, next) => {
-  // استدعاء دالة الـ Seeding من الـ Service
   const seededDataStats = await seederService.clearAndSeedDatabase();
 
   res.status(201).json({

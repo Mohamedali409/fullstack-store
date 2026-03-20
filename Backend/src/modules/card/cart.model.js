@@ -37,6 +37,13 @@ cartSchema.pre("save", function () {
   );
 });
 
+cartSchema.pre("save", function () {
+  this.totalPrice = this.items.reduce(
+    (total, item) => total + item.quantity * (item.productId.price || 0),
+    0,
+  );
+});
+
 const Cart = mongoose.models.Cart || mongoose.model("Cart", cartSchema);
 
 export default Cart;

@@ -1,6 +1,11 @@
 import Product from "./product.model.js";
 
-export const getAllProducts = (filter = {}, skip = 0, limit = 10) => {
+export const getAllProducts = (
+  filter = {},
+  skip = 0,
+  limit = 10,
+  sortOption = { createdAt: -1 },
+) => {
   return Product.find(filter)
     .populate({
       path: "categoryId",
@@ -12,7 +17,7 @@ export const getAllProducts = (filter = {}, skip = 0, limit = 10) => {
     })
     .skip(skip)
     .limit(limit)
-    .sort({ createdAt: -1 }); // 🔥 latest first
+    .sort(sortOption);
 };
 
 export const countProducts = (filter) => {

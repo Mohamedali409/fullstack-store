@@ -17,9 +17,9 @@ const categoryRouter = express.Router();
 // PUT /categories/:id
 // DELETE /categories/:id
 
-categoryRouter.use(protect);
 categoryRouter.get("/", getAllCategories);
 categoryRouter.get("/:categoryId", getCategoryById);
+categoryRouter.use(protect);
 
 categoryRouter.post("/", restrictTo("Admin"), createCategory);
 categoryRouter.put("/:categoryId", restrictTo("Admin"), updateCategory);

@@ -10,18 +10,18 @@ export const getAllProducts = async (query) => {
 
   let filter = {};
 
+  // فلتر الأقسام (تأكد إن الـ React بيبعت الـ ID بتاع القسم مش اسمه)
   if (query.subcategory) {
     filter.categoryId = query.subcategory;
   } else if (query.category) {
     const subs = await categoryRepository.getAllCategory({
       parent: query.category,
     });
-
     const subIds = subs.map((el) => el._id);
-
     filter.categoryId = { $in: subIds };
   }
 
+  // فلتر البحث
   if (query.search) {
     filter.$or = [
       { name: { $regex: query.search, $options: "i" } },
@@ -29,8 +29,25 @@ export const getAllProducts = async (query) => {
     ];
   }
 
-  const product = await productRepository.getAllProducts(filter, skip, limit);
+  // 🔥 (جديد) فلتر السعر
+  if (query.minPrice || query.maxPrice) {
+    filter.price = {};
+    if (query.minPrice) filter.price.$gte = Number(query.minPrice);
+    if (query.maxPrice) filter.price.$lte = Number(query.maxPrice);
+  }
 
+  // 🔥 (جديد) الترتيب
+  let sortOption = { createdAt: -1 }; // الافتراضي: الأحدث
+  if (query.sort === "price_asc") sortOption = { price: 1 };
+  if (query.sort === "price_desc") sortOption = { price: -1 };
+
+  // تعديل الـ Repository عشان يستقبل الـ Sort (هتحتاج تعدلها في product.repository.js كمان)
+  const product = await productRepository.getAllProducts(
+    filter,
+    skip,
+    limit,
+    sortOption,
+  );
   const total = await productRepository.countProducts(filter);
 
   return {

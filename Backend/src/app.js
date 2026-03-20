@@ -18,7 +18,14 @@ const app = express();
 
 //Middleware
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // حط البورت بتاع الـ React بتاعك هنا
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true, // دي أهم واحدة عشان الـ Cart يشتغل!
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 app.use(morgan("dev"));
 app.use(logger);
 
