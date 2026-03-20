@@ -34,15 +34,13 @@ categorySchema.virtual("subCategories", {
 categorySchema.set("toObject", { virtuals: true });
 categorySchema.set("toJSON", { virtuals: true });
 
-categorySchema.pre("save", (next) => {
+categorySchema.pre("save", function () {
   if (this.level === "main" && this.parent) {
-    return next(new AppError("main category cant have a parent"));
+    return next(new AppError("main category cant have a parent", 400));
   }
   if (this.level === "sub" && !this.parent) {
-    return next(new AppError("Subcategory must be have a parent"));
+    return next(new AppError("Subcategory must be have a parent", 400));
   }
-
-  next();
 });
 
 const Category =
