@@ -1,5 +1,5 @@
 import express from "express";
-import { userLogin, userRegister } from "./auth.controller.js";
+import { userLogin, userRegister, googleCallback } from "./auth.controller.js";
 import passport from "../../middlewares/Passport.js";
 
 const authRouter = express.Router();
@@ -12,19 +12,13 @@ authRouter.get(
   passport.authenticate("google", { scope: ["profile", "email"] }),
 );
 
-// Callback route
 authRouter.get(
   "/google/callback",
-  passport.authenticate("google", { session: false }),
-  (req, res) => {
-    const token = jwt.sign(
-      { id: req.user._id, role: req.user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" },
-    );
-
-    res.json({ success: true, token, user: req.user });
-  },
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "http://localhost:5173/login?error=failed",
+  }),
+  googleCallback,
 );
 
 export default authRouter;

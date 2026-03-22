@@ -19,6 +19,9 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value,
           googleId: profile.id,
+
+          password: profile.id + process.env.GOOGLE_CLIENT_SECRET,
+          confirmPassword: profile.id + process.env.GOOGLE_CLIENT_SECRET,
         });
 
         done(null, newUser);

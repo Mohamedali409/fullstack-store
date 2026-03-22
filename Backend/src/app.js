@@ -9,6 +9,7 @@ import productRouter from "./modules/products/product.routes.js";
 import logger from "./middlewares/logger.middleware.js";
 import cartRouter from "./modules/card/cart.router.js";
 import seederRouter from "./modules/seed/seed.router.js";
+import supportRouter from "./modules/support/support.router.js";
 
 //user router
 // category router
@@ -20,9 +21,9 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173", // حط البورت بتاع الـ React بتاعك هنا
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true, // دي أهم واحدة عشان الـ Cart يشتغل!
+    credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
@@ -44,6 +45,7 @@ app.use("/api/products", productRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/api/cart", cartRouter);
 app.use("/api/seed", seederRouter);
+app.use("/api/support", supportRouter);
 
 //Error handling middleware
 app.use(errorHandling);

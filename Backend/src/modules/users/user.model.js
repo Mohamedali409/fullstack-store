@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
     confirmPassword: {
       type: String,
       required: function () {
-        return this.isNew;
+        return !this.googleId;
       },
       select: false,
     },
