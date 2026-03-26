@@ -253,11 +253,10 @@ JSON
 🚫 Standard Error Responses
 The API uses standardized error responses:
 
-400 Bad Request / 404 Not Found / 401 Unauthorized
+400 Bad Request / 401 Unauthorized / 404 Not Found
 
 JSON
 {
 "success": false,
-"message": "Error description message here",
-"stack": "..." // Only visible in development mode
+"message": "Error description message here"
 }
