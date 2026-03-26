@@ -21,6 +21,7 @@ Register a new user in the system.
 - **Method:** `POST`
 - **Auth Required:** ❌
 - **Body:**
+
   ```json
   {
     "name": "Mohamed Ali",
@@ -28,10 +29,10 @@ Register a new user in the system.
     "password": "password123",
     "confirmPassword": "password123"
   }
-  ```
 
-2. Login User
-   Authenticate a user and receive a JWT token.
+  2. Login User
+  Authenticate a user and receive a JWT token.
+  ```
 
 URL: /auth/login
 
@@ -40,13 +41,12 @@ Method: POST
 Auth Required: ❌
 
 Body:
-
-JSON
 {
 "email": "mohamed@example.com",
 "password": "password123"
 }
-Success Response: Returns user data and token.
+
+- Success Response: Returns user data and token.
 
 3. Google OAuth Login
    Login or register using a Google Account.
@@ -85,23 +85,22 @@ Method: POST
 Auth Required: ✅ (Admin Only)
 
 Body (Main Category):
-
-JSON
 {
 "name": "Electronics",
 "description": "All electronic devices",
 "level": "main"
 }
-Body (Sub Category):
 
-JSON
-{
-"name": "Smartphones",
-"description": "Mobile phones",
-"level": "sub",
-"parent": "MAIN_CATEGORY_OBJECT_ID"
-} 4. Update Category
-URL: /categories/:categoryId
+- Body (Sub Category):
+  {
+  "name": "Smartphones",
+  "description": "Mobile phones",
+  "level": "sub",
+  "parent": "MAIN_CATEGORY_OBJECT_ID"
+  }
+
+4. Update Category
+   URL: /categories/:categoryId
 
 Method: PUT
 
@@ -211,13 +210,13 @@ Method: POST
 Auth Required: ✅ (Logged In User)
 
 Body:
-
-JSON
 {
 "productId": "PRODUCT_OBJECT_ID",
 "quantity": 2
-} 3. Remove Product From Cart
-URL: /cart/:productId
+}
+
+3. Remove Product From Cart
+   URL: /cart/:productId
 
 Method: DELETE
 
@@ -242,20 +241,23 @@ Method: POST
 Auth Required: ❌
 
 Body:
-
-JSON
 {
 "name": "Ahmed",
 "email": "ahmed@example.com",
 "subject": "Payment Issue",
 "message": "I am facing an issue while checking out."
 }
+
 🚫 Standard Error Responses
 The API uses standardized error responses:
 
 400 Bad Request / 401 Unauthorized / 404 Not Found
 
-JSON
+🚫 Standard Error Responses
+The API uses standardized error responses:
+
+400 Bad Request / 401 Unauthorized / 404 Not Found
+
 {
 "success": false,
 "message": "Error description message here"
