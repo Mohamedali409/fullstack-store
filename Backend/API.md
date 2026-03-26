@@ -6,7 +6,7 @@ Welcome to the API documentation for the **Aly Shope** e-commerce platform. This
 
 ## 🌍 Base URL
 
-All API requests should be prefixed with:
+All API requests should be prefixed with:  
 `http://localhost:3000/api`
 
 ---
@@ -21,7 +21,6 @@ Register a new user in the system.
 - **Method:** `POST`
 - **Auth Required:** ❌
 - **Body:**
-
   ```json
   {
     "name": "Mohamed Ali",
@@ -29,236 +28,238 @@ Register a new user in the system.
     "password": "password123",
     "confirmPassword": "password123"
   }
-
-  2. Login User
-  Authenticate a user and receive a JWT token.
   ```
 
-URL: /auth/login
+### 2. Login User
 
-Method: POST
+Authenticate a user and receive a JWT token.
 
-Auth Required: ❌
-
-Body:
-{
-"email": "mohamed@example.com",
-"password": "password123"
-}
-
-- Success Response: Returns user data and token.
-
-3. Google OAuth Login
-   Login or register using a Google Account.
-
-URL: /auth/google
-
-Method: GET
-
-Auth Required: ❌
-
-Note: Redirects to Google Consent Screen. Callback URL is /auth/google/callback.
-
-🗂️ Categories
-
-1. Get All Categories
-   Retrieve all main categories along with their subcategories.
-
-URL: /categories
-
-Method: GET
-
-Auth Required: ✅ (Logged In User)
-
-2. Get Category By ID
-   URL: /categories/:categoryId
-
-Method: GET
-
-Auth Required: ✅ (Logged In User)
-
-3. Create Category
-   URL: /categories
-
-Method: POST
-
-Auth Required: ✅ (Admin Only)
-
-Body (Main Category):
-{
-"name": "Electronics",
-"description": "All electronic devices",
-"level": "main"
-}
-
-- Body (Sub Category):
+- **URL:** `/auth/login`
+- **Method:** `POST`
+- **Auth Required:** ❌
+- **Body:**
+  ```json
   {
-  "name": "Smartphones",
-  "description": "Mobile phones",
-  "level": "sub",
-  "parent": "MAIN_CATEGORY_OBJECT_ID"
+    "email": "mohamed@example.com",
+    "password": "password123"
   }
+  ```
+- **Success Response:** Returns user data and `token`.
 
-4. Update Category
-   URL: /categories/:categoryId
+### 3. Google OAuth Login
 
-Method: PUT
+Login or register using a Google Account.
 
-Auth Required: ✅ (Admin Only)
+- **URL:** `/auth/google`
+- **Method:** `GET`
+- **Auth Required:** ❌
+- **Note:** Redirects to Google Consent Screen. Callback URL is `/auth/google/callback`.
 
-5. Delete Category
-   URL: /categories/:categoryId
+---
 
-Method: DELETE
+## 🗂️ Categories
 
-Auth Required: ✅ (Admin Only)
+### 1. Get All Categories
 
-📦 Products
+Retrieve all main categories along with their subcategories.
 
-1. Get All Products
-   Retrieve products with optional filtering, searching, and pagination.
+- **URL:** `/categories`
+- **Method:** `GET`
+- **Auth Required:** ✅ (Logged In User)
 
-URL: /products
+### 2. Get Category By ID
 
-Method: GET
+Retrieve a specific category by ID.
 
-Auth Required: ❌
+- **URL:** `/categories/:categoryId`
+- **Method:** `GET`
+- **Auth Required:** ✅ (Logged In User)
 
-Query Parameters:
+### 3. Create Category
 
-page (default: 1)
+Create a new category.
 
-limit (default: 10)
+- **URL:** `/categories`
+- **Method:** `POST`
+- **Auth Required:** ✅ (Admin Only)
+- **Body (Main Category):**
+  ```json
+  {
+    "name": "Electronics",
+    "description": "All electronic devices",
+    "level": "main"
+  }
+  ```
+- **Body (Sub Category):**
+  ```json
+  {
+    "name": "Smartphones",
+    "description": "Mobile phones",
+    "level": "sub",
+    "parent": "MAIN_CATEGORY_OBJECT_ID"
+  }
+  ```
 
-search (Search by name or description)
+### 4. Update Category
 
-category (Filter by Main Category ID)
+Update an existing category.
 
-subcategory (Filter by Sub Category ID)
+- **URL:** `/categories/:categoryId`
+- **Method:** `PUT`
+- **Auth Required:** ✅ (Admin Only)
 
-2. Get Product By ID
-   URL: /products/:productId
+### 5. Delete Category
 
-Method: GET
+Delete a category.
 
-Auth Required: ❌
+- **URL:** `/categories/:categoryId`
+- **Method:** `DELETE`
+- **Auth Required:** ✅ (Admin Only)
 
-3. Create Product
-   URL: /products
+---
 
-Method: POST
+## 📦 Products
 
-Auth Required: ✅ (Admin Only)
+### 1. Get All Products
 
-Headers: Content-Type: multipart/form-data
+Retrieve products with optional filtering, searching, and pagination.
 
-Form Data:
+- **URL:** `/products`
+- **Method:** `GET`
+- **Auth Required:** ❌
+- **Query Parameters:**
+  - `page` (default: 1)
+  - `limit` (default: 10)
+  - `search` (Search by name or description)
+  - `category` (Filter by Main Category ID)
+  - `subcategory` (Filter by Sub Category ID)
 
-name: Product Name
+### 2. Get Product By ID
 
-description: Product Description
+Retrieve a specific product.
 
-price: 1200
+- **URL:** `/products/:productId`
+- **Method:** `GET`
+- **Auth Required:** ❌
 
-categoryId: SUBCATEGORY_OBJECT_ID
+### 3. Create Product
 
-image: (File upload)
+Add a new product to the store.
 
-4. Update Product
-   URL: /products/:productId
+- **URL:** `/products`
+- **Method:** `POST`
+- **Auth Required:** ✅ (Admin Only)
+- **Headers:** `Content-Type: multipart/form-data`
+- **Form Data:**
+  - `name`: Product Name
+  - `description`: Product Description
+  - `price`: 1200
+  - `categoryId`: SUBCATEGORY_OBJECT_ID
+  - `image`: (File upload)
 
-Method: PUT
+### 4. Update Product
 
-Auth Required: ✅ (Admin Only)
+Update an existing product.
 
-Body: JSON object with fields to update.
+- **URL:** `/products/:productId`
+- **Method:** `PUT`
+- **Auth Required:** ✅ (Admin Only)
+- **Body:** JSON object with fields to update.
 
-5. Delete Product
-   URL: /products/:productId
+### 5. Delete Product
 
-Method: DELETE
+Remove a product.
 
-Auth Required: ✅ (Admin Only)
+- **URL:** `/products/:productId`
+- **Method:** `DELETE`
+- **Auth Required:** ✅ (Admin Only)
 
-6. Upload/Update Product Image
-   URL: /products/:id/upload-image
+### 6. Upload/Update Product Image
 
-Method: POST
+Upload an image for a product.
 
-Auth Required: ✅ (Admin Only)
+- **URL:** `/products/:id/upload-image`
+- **Method:** `POST`
+- **Auth Required:** ✅ (Admin Only)
+- **Headers:** `Content-Type: multipart/form-data`
+- **Form Data:**
+  - `image`: (File upload)
 
-Headers: Content-Type: multipart/form-data
+---
 
-Form Data:
+## 🛒 Cart
 
-image: (File upload)
+### 1. Get User Cart
 
-🛒 Cart
+Retrieve the current user's cart.
 
-1. Get User Cart
-   URL: /cart
+- **URL:** `/cart`
+- **Method:** `GET`
+- **Auth Required:** ✅ (Logged In User)
 
-Method: GET
+### 2. Add Product To Cart
 
-Auth Required: ✅ (Logged In User)
+Add an item to the cart.
 
-2. Add Product To Cart
-   URL: /cart
+- **URL:** `/cart`
+- **Method:** `POST`
+- **Auth Required:** ✅ (Logged In User)
+- **Body:**
+  ```json
+  {
+    "productId": "PRODUCT_OBJECT_ID",
+    "quantity": 2
+  }
+  ```
 
-Method: POST
+### 3. Remove Product From Cart
 
-Auth Required: ✅ (Logged In User)
+Remove a specific item from the cart.
 
-Body:
-{
-"productId": "PRODUCT_OBJECT_ID",
-"quantity": 2
-}
+- **URL:** `/cart/:productId`
+- **Method:** `DELETE`
+- **Auth Required:** ✅ (Logged In User)
 
-3. Remove Product From Cart
-   URL: /cart/:productId
+### 4. Clear Cart
 
-Method: DELETE
+Empty the entire cart.
 
-Auth Required: ✅ (Logged In User)
+- **URL:** `/cart`
+- **Method:** `DELETE`
+- **Auth Required:** ✅ (Logged In User)
 
-4. Clear Cart
-   URL: /cart
+---
 
-Method: DELETE
+## 🎧 Support (Customer Service)
 
-Auth Required: ✅ (Logged In User)
+### 1. Submit Support Ticket
 
-🎧 Support (Customer Service)
+Allows users or guests to send a message to support. An automated confirmation email is sent to the provided email address.
 
-1. Submit Support Ticket
-   Allows users or guests to send a message to support. An automated confirmation email is sent to the provided email address.
+- **URL:** `/support`
+- **Method:** `POST`
+- **Auth Required:** ❌
+- **Body:**
+  ```json
+  {
+    "name": "Ahmed",
+    "email": "ahmed@example.com",
+    "subject": "Payment Issue",
+    "message": "I am facing an issue while checking out."
+  }
+  ```
 
-URL: /support
+---
 
-Method: POST
+## 🚫 Standard Error Responses
 
-Auth Required: ❌
-
-Body:
-{
-"name": "Ahmed",
-"email": "ahmed@example.com",
-"subject": "Payment Issue",
-"message": "I am facing an issue while checking out."
-}
-
-🚫 Standard Error Responses
 The API uses standardized error responses:
 
-400 Bad Request / 401 Unauthorized / 404 Not Found
+**400 Bad Request / 401 Unauthorized / 404 Not Found / 500 Server Error**
 
-🚫 Standard Error Responses
-The API uses standardized error responses:
-
-400 Bad Request / 401 Unauthorized / 404 Not Found
-
+```json
 {
-"success": false,
-"message": "Error description message here"
+  "success": false,
+  "message": "Error description message here"
 }
+```
