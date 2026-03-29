@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import session from "express-session";
 import cors from "cors";
 import morgan from "morgan";
@@ -29,6 +30,7 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(logger);
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.use(
   session({

@@ -8,12 +8,15 @@ const userRegister = asyncHandler(async (req, res, next) => {
 
   const newUser = await authService.createNewUser(data);
 
+  const token = generateToken(newUser);
+
   const { password: pwd, ...userData } = newUser.toObject();
 
   res.status(201).json({
     success: true,
     message: "User created successfully",
     user: userData,
+    token,
   });
 });
 

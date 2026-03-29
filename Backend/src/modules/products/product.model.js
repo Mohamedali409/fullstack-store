@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema(
       min: [0, "price conn't be negative "],
     },
     image: { type: String },
+    images: [{ type: String }],
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",

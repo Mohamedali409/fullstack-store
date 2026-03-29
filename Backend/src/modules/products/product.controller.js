@@ -22,11 +22,35 @@ const getProductById = asyncHandler(async (req, res, next) => {
 });
 
 const createProduct = asyncHandler(async (req, res, next) => {
-  const { name, description, price, categoryId } = req.body;
-
+  const { name, description, price, categoryId, stock } = req.body;
   const createdBy = req.user.id;
 
-  const data = { name, description, price, categoryId, createdBy };
+  let image = "";
+  let images = [];
+
+  if (req.files) {
+    if (req.files.image) {
+      image = `uploads/products/${req.files.image[0].filename}`;
+    }
+
+    if (req.files.images) {
+      images = req.files.images.map(
+        (file) => `uploads/products/${file.filename}`,
+      );
+    }
+  }
+
+  const data = {
+    name,
+    description,
+    price,
+    categoryId,
+    createdBy,
+    stock,
+    image,
+    images,
+  };
+
   const product = await productService.createProduct(data);
 
   res.status(201).json({

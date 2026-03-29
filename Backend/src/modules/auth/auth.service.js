@@ -10,7 +10,7 @@ export const createNewUser = async (data) => {
   }
 
   const newUser = await userRepository.createUser(data);
-  await newUser.save();
+  // await newUser.save();
 
   return newUser;
 };
