@@ -35,11 +35,11 @@ const userLogin = asyncHandler(async (req, res, next) => {
     token,
   });
 });
-// ... (باقي الكود بتاعك فوق زي ما هو)
+
 const googleCallback = asyncHandler(async (req, res, next) => {
   const user = req.user;
   const token = generateToken(user);
-  // هنا بنرجعه للفرونت إند (5173) ونديله التوكن
+
   res.redirect(`http://localhost:5173/auth/callback?token=${token}`);
 });
 

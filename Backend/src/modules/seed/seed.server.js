@@ -35,14 +35,12 @@ export const clearAndSeedDatabase = async () => {
   }
   const adminId = createdUsers[0]._id;
 
-  // 3️⃣ إنشاء التصنيف الرئيسي
   const mainCategory = await Category.create({
     name: "All Products",
     description: "Main store category",
     level: "main",
   });
 
-  // 4️⃣ إنشاء التصنيفات الفرعية
   const subCategoriesData = [
     { name: "Audio & Headphones", level: "sub", parent: mainCategory._id },
     { name: "Smartphones & Tablets", level: "sub", parent: mainCategory._id },
@@ -63,13 +61,11 @@ export const clearAndSeedDatabase = async () => {
   const getSubCategoryId = (name) =>
     createdSubCategories.find((c) => c.name === name)?._id;
 
-  // 5️⃣ قراءة صور من مجلد seed
   const imagesFolder = path.join(process.cwd(), "uploads", "seed");
   const imageFiles = fs.existsSync(imagesFolder)
     ? fs.readdirSync(imagesFolder)
     : [];
 
-  // 6️⃣ إنشاء المنتجات
   const productsData = [
     {
       name: "TOZO T6 True Wireless Earbuds Bluetooth Headphones",
@@ -100,7 +96,6 @@ export const clearAndSeedDatabase = async () => {
     // هنا ممكن تضيف باقي المنتجات بنفس الطريقة...
   ];
 
-  // توزيع الصور على المنتجات
   const productsWithImages = productsData.map((product, index) => {
     const imageFile = imageFiles[index % imageFiles.length];
     return {

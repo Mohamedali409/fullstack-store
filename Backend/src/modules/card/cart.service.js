@@ -17,13 +17,11 @@ export const getCartByUser = async (userId) => {
 };
 
 export const addToCart = async (userId, productId, quantity = 1) => {
-  // 1. التأكد من وجود المنتج
   const product = await productRepository.getProductById(productId);
   if (!product) {
     throw new AppError("Product not found", 404);
   }
 
-  // 2. جلب السلة (بدون populate في البداية عشان نعرف نقارن الـ IDs صح)
   let cart = await Cart.findOne({ userId });
 
   if (!cart) {
@@ -33,26 +31,19 @@ export const addToCart = async (userId, productId, quantity = 1) => {
     });
   }
 
-  // 3. البحث عن المنتج (استخدام toString() مهم جداً هنا)
   const productIndex = cart.items.findIndex(
     (item) => item.productId.toString() === productId.toString(),
   );
 
   if (productIndex > -1) {
-    // المنتج موجود -> حدث الكمية
-    // تأكد أننا لا نسمح بكمية أقل من 1
     const newQuantity = cart.items[productIndex].quantity + quantity;
     cart.items[productIndex].quantity = newQuantity < 1 ? 1 : newQuantity;
   } else {
-    // المنتج غير موجود -> ضيفه لأول مرة
-    // إذا كانت الكمية المرسلة سالبة (نقصان) لمنتج غير موجود أصلاً، نعتبرها 1
     cart.items.push({ productId, quantity: quantity < 1 ? 1 : quantity });
   }
 
-  // 4. حفظ التعديلات
   await cart.save();
 
-  // 5. عمل populate عشان الـ Frontend يشوف بيانات المنتج
   await cart.populate("items.productId");
 
   return cart;

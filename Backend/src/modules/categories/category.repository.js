@@ -1,6 +1,6 @@
 import Category from "./category.model.js";
 
-// Get all (مع filter)
+// Get all (with filter)
 export const getAllCategory = (filter = {}) => {
   return Category.find(filter);
 };

@@ -9,7 +9,6 @@ export const sendEmail = async (options) => {
     },
   });
 
-  // 2. تجهيز بيانات الإيميل
   const mailOptions = {
     from: `"Aly Shope Support" <${process.env.EMAIL_USER}>`,
     to: options.to,
@@ -17,6 +16,5 @@ export const sendEmail = async (options) => {
     html: options.html,
   };
 
-  // 3. إرسال الإيميل
   await transporter.sendMail(mailOptions);
 };

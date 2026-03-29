@@ -23,14 +23,12 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-// ✅ virtual relation
 categorySchema.virtual("subCategories", {
   ref: "Category",
   localField: "_id",
   foreignField: "parent",
 });
 
-// ✅ علشان يظهر في response
 categorySchema.set("toObject", { virtuals: true });
 categorySchema.set("toJSON", { virtuals: true });
 
